@@ -15,6 +15,21 @@ Vagrant.configure("2") do |config|
     foreman.vm.network "forwarded_port", guest: 443, host: 443, host_ip: "127.0.0.1"
     foreman.vm.provision "file", source: "./files/hosts", destination: "/tmp/hosts"
     foreman.vm.provision "shell", path: "./scripts/install_foreman.sh"
+    foreman.vm.synced_folder "puppet/", "/etc/puppetlabs/code/environments/production/manifests/", owner: "root", group: "root"
+  end
+  
+  config.vm.define "gitlab" do |gitlab|
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 4096
+      v.cpus = 2
+    end
+    gitlab.vm.hostname = "gitlab.local"
+    gitlab.vm.network "private_network", ip: "10.0.0.3"
+    gitlab.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    gitlab.vm.network "forwarded_port", guest: 443, host: 4434, host_ip: "127.0.0.1"
+    gitlab.vm.provision "file", source: "./files/hosts", destination: "/tmp/hosts"
+    gitlab.vm.provision "shell", inline: "sudo mv /tmp/hosts /etc/hosts"
+    gitlab.vm.provision "shell", path: "./scripts/install_puppet_agent.sh"
   end
   
 

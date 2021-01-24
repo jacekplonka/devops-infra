@@ -25,3 +25,5 @@ case "${ID}" in
     exit 1
     ;;
 esac
+
+sudo /opt/puppetlabs/bin/puppet agent -t

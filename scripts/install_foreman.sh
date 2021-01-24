@@ -12,4 +12,6 @@ sudo apt-get update && sudo apt-get -y install foreman-installer
 sudo foreman-installer --foreman-initial-admin-password admin
 sleep 60
 sudo /opt/puppetlabs/bin/puppet agent --test
+sudo /opt/puppetlabs/bin/puppet module install puppet-gitlab
+sudo sh -c "echo '*' > /etc/puppetlabs/puppet/autosign.conf"
 

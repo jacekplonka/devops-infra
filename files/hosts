@@ -1,4 +1,6 @@
 10.0.0.2 foreman.local foreman
+10.0.0.2 puppet.local puppet
+10.0.0.3 gitlab.local gitlab
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     ip6-localhost   ip6-loopback
